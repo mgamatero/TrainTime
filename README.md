@@ -1,2 +1,2 @@
 # TrainTime
-Train Time - Able to add new train and update schedule - Firebase
+Train Time - Add new train and update schedule - Firebase
