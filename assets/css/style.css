@@ -1,97 +1,55 @@
 body{
-    overflow: auto;
-    box-sizing: border-box;   
-    background-image: url("../images/background.png");
-    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;   
-}
+    background-image: url("../images/trainBg.jpg");
+  }
+  .title {
+    /* display: inline; */
+    text-align: center;
+    color: white;
+  }
 
-h1{
-    font-size: 48px;
-    font-style: 
-}
-
-h2{
-    font-size: 24px;
-}
-
-h3{
-    font-size: 18px;
-}
-.col-sm-12{
-    margin: 0 auto;
+  .jumbotron {
+    background-color: rgba(77, 75, 70, 0.925);
+    color:whitesmoke;
+  }
+ h2 {
     
-}
-#splash{   
-    margin: 5% auto;
-    max-width:75%;
-    max-height: 85%;
-    padding:5%;
-    border:solid 5px white;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.993);
-    background-image: url("../images/blue_squares.jpg");
-    
-}
+    color: white;
+    font-size: 20px;
 
+  }
 
-#questions{
-    margin: 5% auto;
-    max-width:75%;
-    max-height: 85%;
-    padding:5%;
-    border:solid 5px white;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.993);
-    background-image: url("../images/black.jpg");
-}
+  .card {
+    border: 2px solid rgb(100, 98, 98);
+    margin-bottom: 20px;
+    background-color: burlywood;
+  }
 
-#actualQuestion{
-    font-size: 24px;
-}
-
-li{
-    text-align: left;
-    margin-left: 30%;
-}
-#answer{
-    font-size: 18px;
-}
-
-.answer:hover{
-   color: #e6f512;
-}
-
-
-#transition{
-    margin: 5% auto;
-    max-width:60%;
-    max-height: auto;
-    padding:5%;
-    border:solid 5px  rgba(47, 48, 45, 0.993);
-    text-align: center;
-    color: rgba(142, 228, 4, 0.993);
-    background-image: url("../images/rgb.jpg");
-}
-
-#transitionImg{
-
-   width: 200px;
-   height: auto;
-   
-   
-}
-
-#resultHeader{
-    text-decoration: underline;
-}
-#finalResult{
-    margin: 5% auto;
-    max-width:75%;
-    max-height: 85%;
-    padding:5%;
-    border:solid 5px white;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.993);
+  .card-header {
     background-color: black;
-}
-                
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  #searchParam {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+  form {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+  }
+
+  .form-group{
+display: inline-block;
+  }
+
+  .buttons {
+    background-color: grey;
+    color: white;
+  }
+
+  
+  

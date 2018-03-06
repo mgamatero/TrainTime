@@ -5,213 +5,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>New York Times</title>
+  <title>Train Schedule</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
     crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    .title {
-      /* display: inline; */
-      text-align: center;
-      color: white;
-    }
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
 
-    .jumbotron {
-      background-color: #002ABC;
-    }
-
-    h2 {
-      background-color: #002ABC;
-      color: white;
-      font-size: 20px;
-
-    }
-
-    .card {
-      border: 2px solid rgb(100, 98, 98);
-      margin-bottom: 20px;
-    }
-
-    .card-header {
-      background-color: #002ABC;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      color: white;
-    }
-
-    #searchParam {
-      padding-left: 10px;
-      padding-top: 10px;
-    }
-
-    form {
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-bottom: 20px;
-    }
-
-    .buttons {
-      background-color: grey;
-      color: white;
-    }
-
-    .top-Articles {
-      height: 100px;
-    }
-  </style>
 </head>
 
 <body>
+  <div class="container-fluid">
+    <div class="row top-section">
+      <div class="col-md-3">
+        <div class="jumbotron fluid-jumbotron">
+          <div class="container">
+            <h3>
+              
+              <i class="fas fa-cog fa-spin"></i>Train Schedule
+              <i class="fas fa-cog fa-spin"></i>
+              
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <span id="newTrain" style="font-size:20px"> New Train</span>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="trainName">Train Name:</label>
+                <input type="text" class="form-control" id="trainName" placeholder="Train Name">
+              </div>
 
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid">
+              <div class="form-group">
+                <label for="destination">Destination:</label>
+                <input type="text" class="form-control" id="destination" placeholder="Destination">
+              </div>
 
-      <!-- <span class="glyphicon glyphicon-newspaper"></span> -->
-      <span class="title">
+              <div class="form-group">
+                <label for="firstTrainTime">First Train Time(HH:mm - military time)</label>
+                <input type="text" class="form-control" id="firstTrainTime" placeholder="HH:mm">
+              </div>
 
-        <h1 class="display-4">
-          <i style="font-size:48px"></i> Employee Data Management</h1>
-        <h3>A Comprehensive Directory of Employee Billable Hours</h3>
+              <div class="form-group">
+                <label for="frequency">Frequency (min)</label>
+                <input type="text" class="form-control" id="frequency" placeholder="min">
+              </div>
 
-      </span>
+              <button type="submit" id="submitBTN" class="btn btn-default buttons">
+                <span style="font-size:12px"></span>Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="card">
-
       <div class="card-header">
-
-
-
-        <span id="searchParam" style="font-size:20px"> Current Employees</span>
+        <span id="searchParam" style="font-size:20px"> Current Train Schedule</span>
       </div>
       <div class="top-Articles">
-
         <div class="articles-section">
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Employee Name</th>
-                <th scope="col">Role</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">Months Worked</th>
-                <th scope="col">Monthly Rate ($)</th>
-                <th scope="col">Total Billed ($)</th>
+                <th scope="col">Train Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Frequency (min)</th>
+                <th scope="col">Next Arrival</th>
+                <th scope="col">Minutes Away</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-
-
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
-
-    <div class="card">
-      <div class="card-header">
-
-        <span id="searchParam" style="font-size:20px"> Search Parameters</span>
-      </div>
-      <div class="card-body">
-
-        <form>
-          <div class="form-group">
-            <label for="employeeName">Employee Name:</label>
-            <input type="text" class="form-control" id="employeeName" placeholder="" name="empName">
-          </div>
-
-          <div class="form-group">
-            <label for="role">Role</label>
-            <input type="text" class="form-control" id="role" placeholder="" name="role">
-          </div>
-
-          <div class="form-group">
-            <label for="startDate">Start Date (DD/MM/YY - ex:01/01/89)</label>
-            <input type="date" class="form-control" id="startDate" placeholder="" name="startDate">
-          </div>
-
-          <div class="form-group">
-            <label for="monthlyRate">Monthly Rate</label>
-            <input type="number" class="form-control" id="monthyRate" placeholder="" name="monthlyRate">
-          </div>
-
-          <button type="submit" id="submitBTN" class="btn btn-default buttons">
-            <span style="font-size:12px"></span>Submit</button>
-        </form>
+  </div>
+  <br>
+  <br>
 
 
-      </div>
-    </div>
-    <br>
-    <br>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <!-- MomentJS -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <!-- Javasript file -->
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
 
-    <!-- <input type="text" name="name" id="name" placeholder="name">
-    <input type="text" name="email" id="email" placeholder="email">
-    <input type="number" name="number" id="number" placeholder="random number">
-    <button id="submitBTN" type="submit">SUBMIT</button>
-
-    <h1 id="dispName"></h1>
-    <h1 id="dispEmail"></h1>
-    <h1 id="dispNumber"></h1> -->
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-
-    <!-- MomentJS -->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-
-    <script>
-      // console.log(moment('12/13/1901', 'DD/MM/YYYY').format('ddd MMM, DD, YYYY'))
-
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAmKDyCH49M7fVt2xhnDWwOXKHne0-EajI",
-        authDomain: "employeedata-cbc8d.firebaseapp.com",
-        databaseURL: "https://employeedata-cbc8d.firebaseio.com",
-        projectId: "employeedata-cbc8d",
-        storageBucket: "employeedata-cbc8d.appspot.com",
-        messagingSenderId: "653795489781"
-      };
-
-      firebase.initializeApp(config)
-
-      var database = firebase.database()
-
-      var users = database.ref('/users')
-      var name
-      var number
-      var role
-
-
-      $('#submitBTN').on('click', function (event) {
-        event.preventDefault()
-        name = $("#employeeName").val().trim()
-
-        role = $('#role').val().trim() 
-        // // var startDate = parseInt($('#startDate').val().trim())
-
-        users.push({
-          name: name,
-          role: role,
-          //number: number
-        })
-
-        users.orderByChild('number').limitToLast(1).on('child_added', function (snap) {
-          console.log(snap.val())
-        })
-      })
-    </script>
 </body>
 
 </html>
