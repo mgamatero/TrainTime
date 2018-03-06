@@ -21,7 +21,7 @@ body{
   .card {
     border: 2px solid rgb(100, 98, 98);
     margin-bottom: 20px;
-    background-color: burlywood;
+    background-color: rgba(235, 198, 168, 0.822);
   }
 
   .card-header {
