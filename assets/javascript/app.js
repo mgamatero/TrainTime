@@ -14,6 +14,20 @@ $(document).ready(function () {
 
     var DB = firebase.database()
 
+    //populates table onload - also reruns after click event below
+    DB.ref().on('child_added', function (snapshot) {
+        getTrainName = snapshot.val().fbTrainName
+        getDestination = snapshot.val().fbDestination
+        getFrequency = snapshot.val().fbFrequency
+        getNextArrival = snapshot.val().fbNextArrival
+        getMinutesAway = snapshot.val().fbMinutesAway
+
+        var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + getFrequency + "</td><td>" + getNextArrival + "</td><td>" + getMinutesAway + "</td></tr>"
+
+        $("tbody").append(dynamicRowAdd)
+    })
+
+    //click function on submit button that gets user input, stores to Firebase    
     $("#submitBTN").on("click", function (event) {
         event.preventDefault()
 
@@ -21,52 +35,42 @@ $(document).ready(function () {
         var destination = $("#destination").val().trim()
         var frequency = $("#frequency").val().trim()
         var firstTrainTime = $("#firstTrainTime").val().trim()
-        var nextArrival = ""
-        var minutesAway = ""
+        var nextArrival = ""  //calculated fields
+        var minutesAway = ""  //calculated fields
 
+        //clears input boxes
         $("#trainName").val("")
         $("#destination").val("")
         $("#frequency").val("")
         $("#firstTrainTime").val("")
 
         var currentTime = moment()
-        var firstTrainTime = moment(firstTrainTime, "H:mm")
+        var firstTrainTime = moment(firstTrainTime, 'H:mm')
 
-        // console.log("firstTrainTime: ", firstTrainTime.format('H:mm'))
-        // console.log("Plus "+ frequency +" mins = "  + firstTrainTime.add(frequency, 'm').format('H:mm'))
-        // console.log("current Time: " + currentTime.format('H:mm'))
-        // console.log("Plus 1 hr 30 min: " + currentTime.add(1, 'h').add(30, 'm').format('H:mm'))
+        console.log("current: " + moment(currentTime).format('H:mm'))
+        console.log("firstTrainTime: " + moment(firstTrainTime).format('H:mm'))
+
 
         if (firstTrainTime > currentTime) {
-            nextArrival = "No more trains today"
-            minutesAway = "No more trains today"
+            nextArrival = firstTrainTime.format('H:mm')
+            minutesAway = moment(firstTrainTime).diff(moment(currentTime, 'H:mm'))
         }
         else {
             while (firstTrainTime < currentTime) {
                 firstTrainTime.add(frequency, 'm')
                 nextArrival = firstTrainTime.format('H:mm')
             }
-            minutesAway = moment(firstTrainTime).diff(moment(currentTime, 'H:mm'))
+                minutesAway = moment(firstTrainTime).diff(moment(currentTime, 'H:mm'))
+            
         }
 
-        DB.ref().set({
+        //push to Firebase
+        DB.ref().push({
             fbTrainName: trainName,
             fbDestination: destination,
             fbFrequency: frequency,
             fbNextArrival: nextArrival,
-            fbMinutesAway: moment(minutesAway).format('mm')
-        })
-
-        DB.ref().on("value", function (snapshot) {
-            var getTrainName = snapshot.val().fbTrainName
-            var getDestination = snapshot.val().fbDestination
-            var getFrequency = snapshot.val().fbFrequency
-            var getNextArrival = snapshot.val().fbNextArrival
-            var getMinutesAway = snapshot.val().fbMinutesAway
-
-            var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + getFrequency + "</td><td>" + getNextArrival + "</td><td>" + getMinutesAway + "</td></tr>"
-
-            $("table tbody").append(dynamicRowAdd)
+            fbMinutesAway: moment(minutesAway).format('H:mm')
         })
     })
 });  //close document.ready
