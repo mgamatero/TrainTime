@@ -30,29 +30,26 @@ $(document).ready(function () {
         alert("firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
 
 
+        //if the First Train time is past the current time, set next available train to First Train time
         if (getFirstTrainTime > currentTime) {
-            alert("if")
-            alert("if firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
             getNextArrival = getFirstTrainTime
             getMinutesAway = moment(getNextArrival).diff(moment(currentTime))
-            alert("getNextArrival: " + moment(getNextArrival, 'H:mm').format('H:mm'))
-            alert("getMinutesAway: " + moment(getMinutesAway).format('H:mm'))
         }
+        //else if First train time is less than current time, run these
         else {
-            alert("else")
-            
             getNextArrival = getFirstTrainTime
-            
+            //add frequency to the next Arrival time until it is greater than current time.  last result is the next arrival        
             while (getNextArrival < currentTime) {
                 getNextArrival.add(getFrequency, 'm')
             }
             getMinutesAway = moment(getNextArrival).diff(moment(currentTime, 'H:mm'))
-            alert("else firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
-
         }
 
+        //update time in html
         $("#timeNow").html(moment().format('H:mm'))
-        var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + moment(getFirstTrainTime).format('H:mm') + "</td><td>" + getFrequency + "</td><td>" + moment(getNextArrival).format("H:mm") + "</td><td>" + moment(getMinutesAway).format("mm") + "</td></tr>"
+
+        //update values on html table
+        var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + getFrequency + "</td><td>" + moment(getNextArrival).format("H:mm") + "</td><td>" + moment(getMinutesAway).format("mm") + "</td></tr>"
         $("tbody").append(dynamicRowAdd)
 
     })
