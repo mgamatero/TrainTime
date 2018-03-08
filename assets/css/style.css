@@ -26,16 +26,11 @@ body{
 
   .card-header {
     background-color: black;
-    padding-bottom: 10px;
+    padding: 10px;
     margin-bottom: 10px;
     color: white;
   }
-
-  #searchParam {
-    padding-left: 10px;
-    padding-top: 10px;
-  }
-
+ 
   form {
     padding-right: 10px;
     padding-left: 10px;

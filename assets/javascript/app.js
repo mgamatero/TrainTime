@@ -1,7 +1,7 @@
 // JavaScript function that wraps everything
 $(document).ready(function () {
 
-
+    $("#timeNow").html(moment().format('H:mm'))
     var config = {
         apiKey: "AIzaSyCres6p22Ba-jYtF1zbLhnhWpyPGedLVUo",
         authDomain: "trains-2c6c0.firebaseapp.com",
@@ -18,13 +18,43 @@ $(document).ready(function () {
     DB.ref().on('child_added', function (snapshot) {
         getTrainName = snapshot.val().fbTrainName
         getDestination = snapshot.val().fbDestination
+        getFirstTrainTime = snapshot.val().fbFirstTrainTime
         getFrequency = snapshot.val().fbFrequency
-        getNextArrival = snapshot.val().fbNextArrival
-        getMinutesAway = snapshot.val().fbMinutesAway
+        var getNextArrival  //calculated fields
+        var getMinutesAway  //calculated fields
 
-        var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + getFrequency + "</td><td>" + getNextArrival + "</td><td>" + getMinutesAway + "</td></tr>"
+        var currentTime = moment()
+        getFirstTrainTime = moment(getFirstTrainTime, 'H:mm')
 
+        // alert("current: " + moment(currentTime).format('H:mm'))
+        alert("firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
+
+
+        if (getFirstTrainTime > currentTime) {
+            alert("if")
+            alert("if firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
+            getNextArrival = getFirstTrainTime
+            getMinutesAway = moment(getNextArrival).diff(moment(currentTime))
+            alert("getNextArrival: " + moment(getNextArrival, 'H:mm').format('H:mm'))
+            alert("getMinutesAway: " + moment(getMinutesAway).format('H:mm'))
+        }
+        else {
+            alert("else")
+            
+            getNextArrival = getFirstTrainTime
+            
+            while (getNextArrival < currentTime) {
+                getNextArrival.add(getFrequency, 'm')
+            }
+            getMinutesAway = moment(getNextArrival).diff(moment(currentTime, 'H:mm'))
+            alert("else firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
+
+        }
+
+        $("#timeNow").html(moment().format('H:mm'))
+        var dynamicRowAdd = "<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" + moment(getFirstTrainTime).format('H:mm') + "</td><td>" + getFrequency + "</td><td>" + moment(getNextArrival).format("H:mm") + "</td><td>" + moment(getMinutesAway).format("mm") + "</td></tr>"
         $("tbody").append(dynamicRowAdd)
+
     })
 
     //click function on submit button that gets user input, stores to Firebase    
@@ -35,8 +65,6 @@ $(document).ready(function () {
         var destination = $("#destination").val().trim()
         var frequency = $("#frequency").val().trim()
         var firstTrainTime = $("#firstTrainTime").val().trim()
-        var nextArrival = ""  //calculated fields
-        var minutesAway = ""  //calculated fields
 
         //clears input boxes
         $("#trainName").val("")
@@ -44,33 +72,12 @@ $(document).ready(function () {
         $("#frequency").val("")
         $("#firstTrainTime").val("")
 
-        var currentTime = moment()
-        var firstTrainTime = moment(firstTrainTime, 'H:mm')
-
-        console.log("current: " + moment(currentTime).format('H:mm'))
-        console.log("firstTrainTime: " + moment(firstTrainTime).format('H:mm'))
-
-
-        if (firstTrainTime > currentTime) {
-            nextArrival = firstTrainTime.format('H:mm')
-            minutesAway = moment(firstTrainTime).diff(moment(currentTime, 'H:mm'))
-        }
-        else {
-            while (firstTrainTime < currentTime) {
-                firstTrainTime.add(frequency, 'm')
-                nextArrival = firstTrainTime.format('H:mm')
-            }
-                minutesAway = moment(firstTrainTime).diff(moment(currentTime, 'H:mm'))
-            
-        }
-
         //push to Firebase
         DB.ref().push({
             fbTrainName: trainName,
             fbDestination: destination,
             fbFrequency: frequency,
-            fbNextArrival: nextArrival,
-            fbMinutesAway: moment(minutesAway).format('H:mm')
+            fbFirstTrainTime: firstTrainTime
         })
     })
 });  //close document.ready
