@@ -26,10 +26,6 @@ $(document).ready(function () {
         var currentTime = moment()
         getFirstTrainTime = moment(getFirstTrainTime, 'H:mm')
 
-        // alert("current: " + moment(currentTime).format('H:mm'))
-        alert("firstTrainTime: " + moment(getFirstTrainTime).format('H:mm'))
-
-
         //if the First Train time is past the current time, set next available train to First Train time
         if (getFirstTrainTime > currentTime) {
             getNextArrival = getFirstTrainTime
