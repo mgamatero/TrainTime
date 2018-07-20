@@ -5,5 +5,6 @@ Train Time App
   - Data is stored in a Firebase database and is persistent
   - Moments.js used for time format
   - Bootstrap 4.0
+  - Deployed link - https://mgamatero.github.io/TrainTime/
 
 ![TrainTime App](https://github.com/mgamatero/TrainTime/blob/master/assets/images/TrainTime.gif "TrainTime App")
